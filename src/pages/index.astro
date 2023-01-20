@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout title="Welcome to Astro.">
+  <main>
+    <!-- <SearchBar client:load /> -->
+    <input type="text" data-input="search" value="test" />
+    <div class="buttons_container">
+      <a href="#" data-query="reddit">reddit</a>
+      <a href="#" data-query="stackoverflow">stackoverflow</a>
+      <a href="#" data-query="normal">search</a>
+    </div>
+  </main>
+</Layout>
+<script>
+  let searchInput = document.querySelector('[data-input="search"]')
+  console.dir(searchInput)
+  let redditSearchButton = document.querySelector('[data-query="reddit"]')
+  let normalSearchButton = document.querySelector('[data-query="normal"]')
+  let stackoverflowSearchButton = document.querySelector(
+    '[data-query="stackoverflow"]'
+  )
+  stackoverflowSearchButton.addEventListener('click', () => {
+    stackoverflowSearchButton.href = `https://www.google.com/search?q=${searchInput?.value
+      .split(' ')
+      .join('+')}+site%3Astackoverflow.com`
+  })
+  redditSearchButton.addEventListener('click', () => {
+    redditSearchButton.href = `https://www.google.com/search?q=${searchInput?.value
+      .split(' ')
+      .join('+')}+site%3Areddit.com`
+  })
+  normalSearchButton.addEventListener('click', () => {
+    normalSearchButton.href = `https://www.google.com/search?q=${searchInput.value
+      .split(' ')
+      .join('+')}`
+  })
+</script>
+<style>
+  main {
+    margin: auto;
+    padding: 1.5rem;
+    width: 60ch;
+  }
+  input {
+    background-color: #303134;
+    border: none;
+    padding-inline: 1rem;
+    padding-block: 0.8rem;
+    border-radius: 5px;
+    width: 100%;
+    color: #e8eaed;
+    font-size: 1rem;
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .buttons_container {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  a {
+    text-decoration: none;
+    color: #8ab4f8;
+    padding-block: 0.5rem;
+    border-radius: 5px;
+    background-color: #303134;
+    padding-inline: 1rem;
+  }
+</style>
